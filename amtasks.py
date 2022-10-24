@@ -6,12 +6,19 @@ from datetime import datetime, timedelta
 daily_email_pd = pd.DataFrame(columns=['Investor Code','Investor Name','Cell',"CCY",'Obligor','Product Code', "Maturity Date","Yield"])
 
 # Daily emails cut off
-defined_cut_off = input("Enter daily email date (yyyy-mm-dd): ")
+defined_cut_off = input("Enter daily email date (T+1, yyyy-mm-dd): ")
 defined_cut_off_format = datetime.strptime(defined_cut_off, '%Y-%m-%d')
 defined_cut_off_format_date = defined_cut_off_format.date()
 
+# Trading df
+trading_df = pd.DataFrame(columns=['Product Code',"CCY",'Extending','Withdrawing'])
+trading_cut_off = input("Enter trading date (T): ")
+trading_cut_off_format = datetime.strptime(trading_cut_off, '%Y-%m-%d')
+trading_cut_off_format_date = trading_cut_off_format.date()
+
+
 # Load redemption file
-redemption_file = input("Enter path to holdings file: ")
+redemption_file = input("Enter path to holdings file : ")
 redemption_file_read = pd.DataFrame(pd.read_excel(redemption_file))
 
 # Daily emails parse
@@ -34,12 +41,6 @@ while row_count < len(redemption_file_read):
     else:
         pass
     row_count = row_count +1
-
-# Trading df
-trading_df = pd.DataFrame(columns=['Product Code',"CCY",'Extending','Withdrawing'])
-trading_cut_off = input("Enter trading date: ")
-trading_cut_off_format = datetime.strptime(trading_cut_off, '%Y-%m-%d')
-trading_cut_off_format_date = trading_cut_off_format.date()
 
 # Trading parse
 holdings_row = 0
